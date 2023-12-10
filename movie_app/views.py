@@ -1,6 +1,9 @@
-# movie_app/views.py
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from rest_framework import generics
-from .models import Director, Movie, Review
+from rest_framework import status
+from django.db.models import Avg
+from .models import Movie, Review,Director
 from .serializers import DirectorSerializer, MovieSerializer, ReviewSerializer
 
 class DirectorListView(generics.ListAPIView):
@@ -26,3 +29,21 @@ class ReviewListView(generics.ListAPIView):
 class ReviewDetailView(generics.RetrieveAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+
+
+@api_view(['GET'])
+def movie_reviews(request):
+    movies = Movie.objects.all()
+    serializer = MovieSerializer(movies, many=True)
+
+    # Рассчитываем средний балл для каждого фильма
+    for movie_data in serializer.data:
+        reviews = movie_data['reviews']
+        if reviews:
+            avg_rating = sum(review['stars'] for review in reviews) / len(reviews)
+            movie_data['rating'] = round(avg_rating, 2)
+        else:
+            movie_data['rating'] = None
+
+    return Response(serializer.data)

@@ -1,0 +1,25 @@
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reviews for {{ movie.title }}</title>
+</head>
+<body>
+    <h1>Reviews for {{ movie.title }}</h1>
+
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <p>{{ review.text }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews available for {{ movie.title }}.</p>
+    {% endif %}
+
+    <a href="{% url 'movie-detail' pk=movie.pk %}">Back to Movie Details</a>
+</body>
+</html>
+{% include 'footer.html' %}

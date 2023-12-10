@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }} Details</title>
+</head>
+<body>
+    <h1>{{ movie.title }} Details</h1>
+
+    <p><strong>Director:</strong> {{ movie.director.name }}</p>
+    <p><strong>Description:</strong> {{ movie.description }}</p>
+    <p><strong>Duration:</strong> {{ movie.duration }} minutes</p>
+
+    <h2>Reviews:</h2>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <p>{{ review.text }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews available for {{ movie.title }}.</p>
+    {% endif %}
+
+    <a href="{% url 'movie-list' %}">Back to Movie List</a>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Director List</title>
+</head>
+<body>
+    <h1>Director List</h1>
+
+    {% if directors %}
+        <ul>
+            {% for director in directors %}
+                <li>
+                    <strong>{{ director.name }}</strong>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No directors available.</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

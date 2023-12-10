@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+    <h1>{{ movie.title }}</h1>
+
+    <p><strong>Director:</strong> {{ movie.director.name }}</p>
+    <p><strong>Description:</strong> {{ movie.description }}</p>
+
+    {% with hours=movie.duration // 60 %}
+        {% with minutes=movie.duration mod 60 %}
+            <p><strong>Duration:</strong> {{ hours }} hours {{ minutes }} minutes</p>
+        {% endwith %}
+    {% endwith %}
+
+    <h2>Reviews:</h2>
+    {% for review in movie.review_set.all %}
+        <p>{{ review.text }}</p>
+    {% endfor %}
+
+    <a href="{% url 'movie-list' %}">Back to Movie List</a>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # movie_app/urls.py
 from django.urls import path
-from .views import DirectorListView, DirectorDetailView, MovieListView, MovieDetailView, ReviewListView, ReviewDetailView
+from .views import DirectorListView, DirectorDetailView, MovieListView,movie_reviews,  MovieDetailView, ReviewListView, ReviewDetailView
 
 urlpatterns = [
     path('directors/', DirectorListView.as_view(), name='director-list'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('movies/<int:pk>/', MovieDetailView.as_view(), name='movie-detail'),
     path('reviews/', ReviewListView.as_view(), name='review-list'),
     path('reviews/<int:pk>/', ReviewDetailView.as_view(), name='review-detail'),
+    path('movies/reviews/', movie_reviews, name='movie-reviews'),
 ]
